@@ -138,14 +138,44 @@ Request headers
         在响应预检请求的时候使用.用来指明在实际的请求中,可以使用哪些自定义HTTP请求头
 CORS如何跨域
     简单的HTTP请求
-        只使用 GET, HEAD 或者 POST 请求方法。如果使用 POST 向服务器端传送数据，则数据类型(Content-Type)只能是 application/x-www-form-urlencoded, multipart/form-data 或 text/plain中的一种。 不会使用自定义请求头（类似于 X-Modified 这种） 直接发起请求
+        只使用 GET, HEAD 或者 POST 请求方法。如果使用 POST 向服务器端传送数据，则数据类型(Content-Type)只能是 
+        application/x-www-form-urlencoded, multipart/form-data 或 text/plain中的一种。 不会使用自定义请求头（类似于 X-Modified 这种）
+         直接发起请求
     复杂的HTTP请求
-        浏览器必须先以 OPTIONS 请求方式发送一个预请求(preflight request)，从而获知服务器端对跨源请求所支持 HTTP 方法。在确认服务器允许该跨源请求的情况下，以实际的 HTTP 请求方法发送那个真正的请求。服务器端也可以通知客户端，是不是需要随同请求一起发送信用信息（包括 Cookies 和 HTTP 认证相关数据）
+        浏览器必须先以 OPTIONS 请求方式发送一个预请求(preflight request)，从而获知服务器端对跨源请求所支持 HTTP 方法。
+        在确认服务器允许该跨源请求的情况下，以实际的 HTTP 请求方法发送那个真正的请求。服务器端也可以通知客户端，是不是
+        需要随同请求一起发送信用信息（包括 Cookies 和 HTTP 认证相关数据）
 CORS的实现
     1：现在大多数浏览器都支持
     2：服务端程序可以自己设置cors的响应头，java里面可以通过servlet的filter
     3：SpringMVC对cors的支持
 ```
+
+* 根据HTTP标准，HTTP请求可以使用多种请求方法。
+    * HTTP1.0定义了三种请求方法： GET, POST 和 HEAD方法。
+    * HTTP1.1新增了五种请求方法：OPTIONS, PUT, DELETE, TRACE 和 CONNECT 方法。
+    ```
+    序号	方法	描述
+    1	GET	请求指定的页面信息，并返回实体主体。
+    2	HEAD	类似于get请求，只不过返回的响应中没有具体的内容，用于获取报头
+    3	POST	向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST请求可能会导致新的资源的建立和/或已有资源的修改。
+    4	PUT	从客户端向服务器传送的数据取代指定的文档的内容。
+    5	DELETE	请求服务器删除指定的页面。
+    6	CONNECT	HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。
+    7	OPTIONS	允许客户端查看服务器的性能。
+    8	TRACE	回显服务器收到的请求，主要用于测试或诊断。
+    ```
+* HTTP状态码分类
+    * HTTP状态码由三个十进制数字组成，第一个十进制数字定义了状态码的类型，后两个数字没有分类的作用。HTTP状态码共分为5种类型：
+    ```
+    HTTP状态码分类
+    分类	分类描述
+    1**	信息，服务器收到请求，需要请求者继续执行操作
+    2**	成功，操作被成功接收并处理
+    3**	重定向，需要进一步的操作以完成请求
+    4**	客户端错误，请求包含语法错误或无法完成请求
+    5**	服务器错误，服务器在处理请求的过程中发生了错误
+    ```
 
 
 ### CSRF <div id='csrf'></div>
@@ -192,7 +222,8 @@ CORS的实现
     的读取操作，不会改变数据，CSRF 攻击无法解析服务器返回的结果，无需保护。
     ```
 * 当前防御 CSRF 的几种策略
-* 在业界目前防御 CSRF 攻击主要有三种策略：验证 HTTP Referer 字段；在请求地址中添加 token 并验证；在 HTTP 头中自定义属性并验证。下面就分别对这三种策略进行详细介绍。
+* 在业界目前防御 CSRF 攻击主要有三种策略：验证 HTTP Referer 字段；在请求地址中添加 token 并验证；在 HTTP 头中自定义属性并验证。
+下面就分别对这三种策略进行详细介绍。
 
 * CSRF 防御方法选择之道
     ```

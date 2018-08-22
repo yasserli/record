@@ -2,6 +2,7 @@
 ### windows <div id='windows'></div>
 * dos
     * wmic //进入命令行系统管理执行脚本界面
+    * cls //清空屏幕显示
     * netstat -ano | findstr "80" //列出进程极其占用的端口，且包含 80
     * tasklist | findstr 2000 //列出进程号为2000的进程信息
     * taskkill -PID <进程号> -F //强制关闭某个进程 
@@ -77,7 +78,28 @@
     ls -a //查看所有文件
     rm -rf .abc.txt.swp //强制删除
     ```
-
+* 环境变量
+    ```
+    编辑你的 PATH 声明，其格式为：
+        PATH=$PATH:<PATH 1>:<PATH 2>:<PATH 3>:------:<PATH N>
+    你可以自己加上指定的路径，中间用冒号隔开。环境变量更改后，在用户下次登陆时生效，如果想立刻生效，则可执行下面的语句：$ source .bash_profile
+    需要注意的是，最好不要把当前路径 “./” 放到 PATH 里，这样可能会受到意想不到的攻击。完成后，可以通过 $ echo $PATH 查看当前的搜索路径。
+    
+    可用 export 命令查看PATH值
+    
+    添加PATH环境变量(临时)，可用：
+        export PATH=/mysql/bin:$PATH
+    永久添加环境变量(影响当前用户)：
+        vim ~/.bashrc
+            export PATH="/mysql/bin:$PATH"
+    永久添加环境变量(影响所有用户)：
+        vim /etc/profile
+            export PATH="/mysql/bin:$PATH"
+        source /etc/profile
+    问题： 
+    1. 做了各实验，在/etc/profile, ~/.profile, ~/.bashrc中加入新PATH，重启都没有效果，只有使用source才可以，ubunt12.04
+     找到原因，~/.zshrc导致的，因为在zshrc中直接对PATH重新赋值，而没有继承之前的$PATH，导致启动加载完/etc/profile后，PATH又被重新赋值。
+    ```
 
 * [composer](https://getcomposer.org/)
     * [install](https://getcomposer.org/download/)

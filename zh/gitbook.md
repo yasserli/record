@@ -63,5 +63,5 @@
             gitbook serve ##使用内置服务浏览图书
         ```
     * 方案二：
-        * 本人使用[nvm管理]](https://segmentfault.com/a/1190000007612011)下载，其他步骤结合方案一
+        * 本人使用[nvm管理](https://segmentfault.com/a/1190000007612011)下载，其他步骤结合方案一
 

@@ -29,4 +29,6 @@
     * [paypal支付](zh/network.md#paypal)
     * [gmail邮箱](zh/network.md#gmail)
     * [proxifier全局vpn](zh/network.md#proxifier)
+* [process](zh/process.md)
+    * [kafka](zh/process.md#kafka)
     

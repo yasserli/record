@@ -37,7 +37,10 @@
     * ``gitbook init`` 初始化当前目录为gitbook图书目录
     * ``gitbook serve`` 内置服务器浏览本地gitbook图书，默认http://localhost:4000
     * ``gitbook build`` 导入当前目录并在当前目录格式化后导出(生成)``_book``目录，默认格式html（3.0.0后gitbook版本的html无法跳转）
-        * ``gitbook build . my_book --gitbook=2.6.7`` ``.``：要导入的图书目录路径，``my_book``：格式化后导出的文件路径，``--gitbook=2.6.7``：指定使用gitbook的2.6.7版本生成
+        * ``gitbook build . my_book --gitbook=2.6.7`` 
+            * ``.``：要导入的图书目录路径，
+            * ``my_book``：格式化后导出的文件路径，
+            * ``--gitbook=2.6.7``：指定使用gitbook的2.6.7版本生成
         * 如果需要导出本地可跳转html，建议使用nvm管理nodejs（如已安装但又不懂nodejs则把原有的卸载了）
             * [nvm](https://github.com/coreybutler/nvm-windows/releases)，[教程](https://segmentfault.com/a/1190000007612011)
         * 走过的路：

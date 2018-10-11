@@ -1,5 +1,10 @@
 ##process
 ### Kafka <div id='kafka'></div>
+* 提示
+    * 运行kafka需要使用Zookeeper，所以需要先启动一个Zookeeper服务器，
+    如果没有Zookeeper，可以使用kafka自带打包和配置好的Zookeeper
+    * [官网下载地址](https://kafka.apache.org/downloads)，使用Binary downloads
+    * 新版开启消费者使用[--bootstrap-server](http://kafka.apache.org/documentation/#quickstart_consume)命令
 * windows平台运行
 ```
     zookeeper:
@@ -96,13 +101,13 @@
     或者
     kill -9 端口号
         //关闭
-    bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test0101
-        //启动Producer ,并向我们上面创建的名称为test01的Topic中生产消息
-    bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --topic test0101 
-        //启动Consumer ，并订阅我们上面创建的名称为test01的Topic中生产的消息
+    bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test123
+        //启动Producer ,并向我们上面创建的名称为test123的Topic中生产消息
+    bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --topic test123 
+        //启动Consumer ，并订阅我们上面创建的名称为test123的Topic中生产的消息
     bin/kafka-topics.sh --list --zookeeper localhost:2181
         //查看创建的所有Topic
-    bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic test0101
+    bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic test123
         //查看创建的Topic (查看Topic的分区和副本情况)
     
     删除一个主题：

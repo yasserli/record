@@ -1,13 +1,47 @@
 ## process
 ### Kafka <div id='kafka'></div>
-* 提示
+* 描述
+    * Kafka框架本身使用Scala编写，因其可水平扩展和高吞吐率而被广泛使用
+    * Kafka是由LinkedIn开发的一个分布式的消息系统，同时支持离线和在线日志处理。
+    
+* [场景、优点](http://orchome.com/295)：
+    * 场景：
+        * 消息系统
+        * 事件采集，网站活动追踪，指标监测
+            * kafka也常常用于监测数据。分布式应用程序生成的统计数据集中聚合。
+            * kafka原本的使用场景：用户的活动追踪，网站的活动（网页游览，搜索或其他用户的操作信息）发布到不同的话题中心，
+            这些消息可实时处理，实时监测，也可加载到Hadoop或离线处理数据仓库。
+            ```
+            大数据时代，最重要的是数据的收集和分析，这些数据包括：
+            
+            1）.用户的行为数据
+            
+            2）.应用工程的性能数据
+            
+            3）.日志的用户活动数据等
+            ```
+        * 日志聚合
+        * 流处理
+            * 仅仅读，写和存储是不够的，kafka的目标是实时的流处理
+        * 提交日志
+    * 优点：
+        * 支持多种语言
+        * 高并发，高吞吐量
+            * 主要是用来解决百万级别的数据中生产者和消费者之间数据传输的问题
+        * 分布式、集群式
+            * 可以将一条数据提供给多个接收这做不同的处理
+            * 当两个系统是隔绝的，无法通信的时候，如果想要他们通信就需要重新构建其中的一个工程，而kafka实现了生产者和消费者之间的无缝对接
+        * Kafka的持久化方案是写入磁盘，虽然内存读写速度明显快过磁盘读写速度，但Kafka却通过线性读写的方式实现快速读写。
+
+* 提示：
     * 运行kafka需要使用Zookeeper，所以需要先启动一个Zookeeper服务器，
     如果没有Zookeeper，可以使用kafka自带打包和配置好的Zookeeper
     * [官网下载地址](https://kafka.apache.org/downloads)，使用Binary downloads
     * 新版开启消费者使用[--bootstrap-server](http://kafka.apache.org/documentation/#quickstart_consume)命令
-* windows平台运行
+
+* windows平台运行：
 ```
-    zookeeper:
+    zookeeper:【新版的Kafka自带有zookeeper，下载、安装、配置zookeeper可跳过】
         进入zookeeper设置目录，E:\soft\elk\zookeeper-3.4.8\conf
         将"zoo_sample.cfg" 复制一份，重命名为"zoo.cfg"
         打开并编辑 并编辑dataDir=/tmp/zookeeper为指定目录为E:/soft/elk/zookeeper-3.4.8/data
@@ -31,7 +65,7 @@
     //生产者（写入）
     bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic test123
     
-    //消费者（读取）
+    //消费者（读取）【旧版使用--zookeeper，新版使用--bootstrap-server】
     bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic test123 --from-beginning
     
     //查看版本
@@ -49,7 +83,7 @@
     
 ```
 
-* linux平台运行
+* linux平台运行：
 ```
     java:
         1.执行命令yum -y list java*查看可安装java版本。
@@ -60,62 +94,67 @@
         5.yum命令安装java在/usr/lib/jvm目录下
     建一个/usr/bin/java的java的超链接。默认情况下从/usr/bin/java路径使用java，yum安装的时候，这个超链接会自动创建，如果你自己下载包安装的话，这个超链接就需要你手动创建了。
     
-    zookeeper:
-    进入zookeeper官网 http://zookeeper.apache.org/
-        1.下载  http://mirror.bit.edu.cn/apache/zookeeper/
-        2.解压  tar -zxvf  zookeeper.tar.gz 
-        3.进入到conf目录
-        4.拷贝zoo_samle.cfg为zoo.cfg
-        5.编辑zoo.cfg文件
-            tickTime=2000  
-            initLimit=10  
-            syncLimit=5 
-            dataDir=/usr/zookeeper (你的安装路径)
-            clientPort=2181 
-        6.设置环境变量
-            export ZOOKEEPER_HOME=/usr/zookeeper-3.4.12(你的安装路径)
-            export PATH=$ZOOKEEPER_HOME/bin:
-        
-        此时安装成功，进行测试：
-        1.进入zookeeper的bin目录，执行sh zkServer.sh start进行启动zookeeper
-        2.查看状态   进入bin目录，执行sh zkServer.sh status
-        3.停止    进入bin目录，执行sh zkServer.sh stop
+    zookeeper:【新版的Kafka自带有zookeeper，下载、安装、配置zookeeper可跳过】
+        进入zookeeper官网 http://zookeeper.apache.org/
+            1.下载  http://mirror.bit.edu.cn/apache/zookeeper/
+            2.解压  tar -zxvf  zookeeper.tar.gz 
+            3.进入到conf目录
+            4.拷贝zoo_samle.cfg为zoo.cfg
+            5.编辑zoo.cfg文件
+                tickTime=2000  
+                initLimit=10  
+                syncLimit=5 
+                dataDir=/usr/zookeeper (你的安装路径)
+                clientPort=2181 
+            6.设置环境变量
+                export ZOOKEEPER_HOME=/usr/zookeeper-3.4.12(你的安装路径)
+                export PATH=$ZOOKEEPER_HOME/bin:
+            
+            此时安装成功，进行测试：
+            1.进入zookeeper的bin目录，执行sh zkServer.sh start进行启动zookeeper
+            2.查看状态   进入bin目录，执行sh zkServer.sh status
+            3.停止    进入bin目录，执行sh zkServer.sh stop
     
     kafka:
-    进入kafka官网 http://kafka.apache.org/downloads.html
-        wget http://mirrors.hust.edu.cn/apache/kafka/2.0.0/kafka_2.11-2.0.0.tg 
-        tar -zxvf kafka_2.11-2.0.0.tg 
-        mv kafka_2.11-2.0.0 kafka
-        rm kafka_2.11-2.0.0.tgz
-    
-    cd /root/kafka
-    
-    由于新版的Kafka自带有zookeeper，所以就直接使用了
-    bin/zookeeper-server-start.sh config/zookeeper.properties
-        //上面代码的意思是：运行脚本从读取zookeeper配置文件中数据以启动zookeeper
-    
-    nohup bin/kafka-server-start.sh config/server.properties
-        //开启kafka
-    jps
-        //检查启动是否成功
-    bin/kafka-server-stop.sh
-    或者
-    kill -9 端口号
-        //关闭
-    bin/kafka-console-producer.sh --broker-list 192.168.218.129:9092 --topic test123
-        //启动Producer ,并向我们上面创建的名称为test123的Topic中生产消息
-    bin/kafka-console-consumer.sh --bootstrap-server 192.168.218.129:9092 --from-beginning --topic test123
-        //启动Consumer ，并订阅我们上面创建的名称为test123的Topic中生产的消息
-            --property print.key=true //将消息的key也输出
-    
-    bin/kafka-topics.sh --list --zookeeper localhost:2181
-        //查看创建的所有Topic
-    bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic test123
-        //查看创建的Topic (查看Topic的分区和副本情况)
-    
-    删除一个主题：
+        进入kafka官网 http://kafka.apache.org/downloads.html
+            wget http://mirrors.hust.edu.cn/apache/kafka/2.0.0/kafka_2.11-2.0.0.tg 
+            tar -zxvf kafka_2.11-2.0.0.tg 
+            mv kafka_2.11-2.0.0 kafka
+            rm kafka_2.11-2.0.0.tgz
+        
+        cd /root/kafka
+        
+        由于新版的Kafka自带有zookeeper，所以就直接使用了
+        bin/zookeeper-server-start.sh config/zookeeper.properties
+            //上面代码的意思是：运行脚本从读取zookeeper配置文件中数据以启动zookeeper
+        
+        nohup bin/kafka-server-start.sh config/server.properties
+            //开启kafka
+        
+        jps
+            //检查启动是否成功
+        
+        bin/kafka-server-stop.sh
+        或者
+        kill -9 端口号
+            //关闭
+        
+        bin/kafka-console-producer.sh --broker-list 192.168.218.129:9092 --topic test123
+            //启动Producer ,并向我们上面创建的名称为test123的Topic中生产消息
+        
+        bin/kafka-console-consumer.sh --bootstrap-server 192.168.218.129:9092 --from-beginning --topic test123
+            //启动Consumer ，并订阅我们上面创建的名称为test123的Topic中生产的消息【旧版使用--zookeeper，新版使用--bootstrap-server】
+                --property print.key=true //将消息的key也输出
+        
+        bin/kafka-topics.sh --list --zookeeper localhost:2181
+            //查看创建的所有Topic
+        
+        bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic test123
+            //查看创建的Topic (查看Topic的分区和副本情况)
+        
         bin/kafka-topics.sh --zookeeper zk_host:port/chroot --delete --topic my_topic_name
-    Kafka目前不支持减少主题的分区数量。
+            //删除一个主题
+        Kafka目前不支持减少主题的分区数量。
 ```
 
 

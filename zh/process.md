@@ -29,10 +29,10 @@
     bin\windows\kafka-topics.bat --list --zookeeper localhost:2181
     
     //生产者（写入）
-    bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic test1
+    bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic test123
     
     //消费者（读取）
-    bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic test1 --from-beginning
+    bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic test123 --from-beginning
     
     //查看版本
     find ./libs/ -name \*kafka_\* | head -1 | grep -o '\kafka[^\n]*'
@@ -92,19 +92,22 @@
     
     由于新版的Kafka自带有zookeeper，所以就直接使用了
     bin/zookeeper-server-start.sh config/zookeeper.properties
+        //上面代码的意思是：运行脚本从读取zookeeper配置文件中数据以启动zookeeper
     
     nohup bin/kafka-server-start.sh config/server.properties
-        //开启
+        //开启kafka
     jps
         //检查启动是否成功
     bin/kafka-server-stop.sh
     或者
     kill -9 端口号
         //关闭
-    bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test123
+    bin/kafka-console-producer.sh --broker-list 192.168.218.129:9092 --topic test123
         //启动Producer ,并向我们上面创建的名称为test123的Topic中生产消息
-    bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --topic test123 
+    bin/kafka-console-consumer.sh --bootstrap-server 192.168.218.129:9092 --from-beginning --topic test123
         //启动Consumer ，并订阅我们上面创建的名称为test123的Topic中生产的消息
+            --property print.key=true //将消息的key也输出
+    
     bin/kafka-topics.sh --list --zookeeper localhost:2181
         //查看创建的所有Topic
     bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic test123

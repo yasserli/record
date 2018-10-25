@@ -26,9 +26,10 @@
     * [Codeigniter](zh/design.md#codeigniter)
 * [网络](zh/network.md)
     * [vpn](zh/network.md#vpn)
-    * [paypal支付](zh/network.md#paypal)
-    * [gmail邮箱](zh/network.md#gmail)
+    * [支付——paypal](zh/network.md#paypal)
+    * [邮箱——gmail](zh/network.md#gmail)
     * [proxifier全局vpn](zh/network.md#proxifier)
+    * [内网穿透——ngrok](zh/penetrate.md#ngrok)
 * [process](zh/process.md)
     * [kafka](zh/process.md#kafka)
     

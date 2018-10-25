@@ -19,6 +19,7 @@
                 Y //确认禁用
                 Sc config http start= disabled //保存服务配置
         ```
+    * telnet IP(域名) 端口 //测试远程端口是否开启
     
 
 

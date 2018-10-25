@@ -1,4 +1,4 @@
-##内网穿透
+## 内网穿透
 ### 穿透 <div id='penetrate'></div>
 * [详细描述](https://blog.csdn.net/zhangguo5/article/details/77848658)
 ```
@@ -15,7 +15,7 @@
 2、设置authtoken（authtoken就是在ngrok官网注册登陆后所获得的token，如果不设置的话默认穿透时间限制是8小时）【可以不设置】
 
 3、运行客户端（进入解压后的目录，运行 ./ngrok http 80，这里的80是指你要穿透的内网http协议的服务端口；
-也可以指定内网ip和端口，win例子：ngrok http 172.16.1.2:8080，linux例子：./ngrok http 172.16.1.2:8080）
+也可以指定内网ip和端口，windows例子：ngrok.exe http 172.16.1.2:8080，linux例子：./ngrok http 172.16.1.2:8080）
 
 4、获取官方的穿透网址（会得到http和https协议的 xxx.ngrok.io 类似的ngrok官方域名）进行浏览
 ```

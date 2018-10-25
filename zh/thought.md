@@ -1,4 +1,4 @@
-##思想
+## 思想
 ### [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer) API
 ```
 REST全称是Representational State Transfer，中文意思是表述（编者注：通常译为表征）性状态转移。 

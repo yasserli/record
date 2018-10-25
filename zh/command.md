@@ -1,4 +1,4 @@
-##命令
+## 命令
 ### windows <div id='windows'></div>
 * dos
     * wmic //进入命令行系统管理执行脚本界面

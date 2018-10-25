@@ -1,4 +1,4 @@
-##设计、架构
+## 设计、架构
 ### 单例模式（构造 construct） <div id='single_case'></div>
     * 结构：
         * $_instance必须声明为静态的私有变量

@@ -1,5 +1,5 @@
 <?php
 
-public function merge(){
-	echo 123;
+public function merge($param){
+	echo 1212;
 }

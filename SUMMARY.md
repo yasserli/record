@@ -30,7 +30,7 @@
     * [邮箱——gmail](zh/network.md#gmail)
     * [proxifier全局vpn](zh/network.md#proxifier)
     * [内网穿透——ngrok](zh/penetrate.md#ngrok)
-    * [阿里云——aliyunn](zh/aliyunn.md#aliyun)
+    * [阿里云——aliyun](zh/aliyun.md#aliyun)
 * [process](zh/process.md)
     * [kafka](zh/process.md#kafka)
     

@@ -1,5 +1,5 @@
 <?php
 
 public function debug(){
-	echo 456;
+	echo 'error: You have not concluded your merge (MERGE_HEAD exists)';
 }

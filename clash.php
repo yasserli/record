@@ -1,5 +1,5 @@
 ﻿<?php
 
 public function clash(){
-	echo 'local edit file git push before.';
+	echo 'this is clash file.';
 }

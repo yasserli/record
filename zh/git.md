@@ -6,25 +6,25 @@
 
 * 常用命令
     * git clone
-        克隆远程分支到本地仓库 
+        //克隆远程分支到本地仓库 
     * git add
-         修改文件添加到缓冲区
+        //修改文件添加到缓冲区
     * git commit 
-        缓冲区提交到本地仓库
+        //缓冲区提交到本地仓库
     * git push 
-        推送到远程分支
+        //推送到远程分支
     * git pull 
-        拉取最新分支
+        //拉取最新分支
     * git status
-        查看状态 
+        //查看状态 
     * git diff 
-        查看修改
+        //查看修改
     * git log 
-        查看提交记录
+        //查看提交记录
     * git reset --hard
-        撤回到某个记录 
+        //撤回到某个记录 
     * git checkout 
-        检出分支，对分支的操作等
+        //检出分支，对分支的操作等
 
 * 解决冲突
     * 所谓冲突
@@ -42,16 +42,18 @@
     
     * 解决修改、提交时，同一分支下的冲突
     ```
+    
     方案一：
         研发员Y 根据冲突进行适当的修改，即兼容 研发员X 的提交代码
             git pull //拉取 A2 的最新代码
-            当未解决冲突（即未 git push 成功前）时操作 git pull 或 git merge 会遇到类似下面的 提示错误信息：You have not concluded your merge (MERGE_HEAD exists).
             git status //查看 A2 与 研发员Y 的冲突文件
             git diff //查看 A2 与 研发员Y 的具体冲突
             手动编辑解决（所有）冲突
             git add -all //添加修改的文件到缓冲区
             git commit -a -m 'resolve conflict' //提交缓冲区的文件到本地仓库，若不用 -a 则提示错误信息：fatal: cannot do a partial commit during a merge.
+            当未解决冲突（即未 git push 成功前）时操作 git pull 或 git merge 会遇到类似下面的 提示错误信息：You have not concluded your merge (MERGE_HEAD exists).
             git push //本地仓库推送远程分支成功
+    
     方案二：
         研发员Y 放弃本地仓库修改，直接获取远程仓库最新的 A2 ——相当于删除本地仓库重新克隆一次远程仓库到本地
             

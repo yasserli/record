@@ -24,6 +24,7 @@
     * [观察者模式](zh/design.md#observer_case)
     * [策略模式](zh/design.md#strategy_case)
     * [Codeigniter](zh/design.md#codeigniter)
+    * [Work](zh/work.md#work)
 * [网络](zh/network.md)
     * [vpn](zh/network.md#vpn)
     * [支付——paypal](zh/network.md#paypal)

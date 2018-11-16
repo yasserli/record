@@ -12,7 +12,7 @@
         * 编写的php程序，通过不同的sapi方式得到各种各样的应用模式。
 * 引擎(Zend)+组件(ext)的模式降低内部耦合，中间层(sapi)隔绝web server和php
 
-### apche <div id='apache'></div>
+### apche <div id='php_apache'></div>
 * apache与php
     * Apache对于php的解析，就是通过众多Module中的php Module来完成的。
         * 假定我们安装的版本是Apache2 和 php5，那么需要编辑Apache的主配置文件http.conf，在其中加入下面的几行内容：
@@ -43,7 +43,7 @@
         4、mysql和其他web服务：属于应用服务，通过PHP的Extensions外 挂模块和mysql关联
     ```
 
-### 运行 <div id='run'></div>
+### 运行 <div id='php_run'></div>
 * php语言由zend编译成机器语言，操作cpu
 * 对数据库的操作属于I/O操作，属于机械运动，也就是说一个网站的瓶颈再去对硬盘的读写造成的，解决办法就是减少I/O操作次数，
 使用缓冲技术，就是在数据的操作放在mencache/redis里面，达到一定数量级的时候在一次性写入数据库，mencache/redis属于key-value关系
@@ -51,7 +51,7 @@
 * 频繁读操作，放在缓存(mencache/redis)里面（读多写少，放在nosql里面，读取功能很强大！）
 
 
-### 路由 <div id='router'></div>
+### 路由 <div id='php_router'></div>
 * 什么是php的路由机制
 ```
 1、路由机制就是把某一个特定形式的URL结构中提炼出来系统对应的参数。
@@ -86,10 +86,63 @@
     后面的部分放入到参数什么地方的，就依据各个框架不同而不同了。
     
 
+### 知识点 <div id='php_work'></div>
+* 下载文件
+    ```php
+    //下载文件方法
+    function download_file($file_name)
+    {
+        header("Content-type:text/html;charset=utf-8");
+    
+        //对中文文件名进行转码
+        $file_name = iconv("UTF-8", "GB2312", $file_name);
+    
+        //文件绝对路径，如：D:/web/static/xxx.jpg
+        $filepath = $_SERVER['DOCUMENT_ROOT'] . $file_name;
+    
+        if (!file_exists($filepath)) { //检查文件是否存在
+            echo "该文件不存在！";
+            return;
+        }
+    
+        $file_size = filesize($filepath);  //计算文件大小
+    
+        //HTTP头部信息
+        header("Content-type: application/octet-stream");
+        header("Accept-Ranges: bytes");
+        header("Accept-Length: " . $file_size);
+        header("Content-Disposition: attachment; filename=" . $file_name);
+    
+    }
+    
+    //调用
+    download_file("xxx.jpg");
+    ```
 
+* 允许跨域
+    ```php
+    浏览器跨域策略起作用，阻止了跨域的请求。
+    
+    第一次请求后端时候，浏览器意识到是访问一个跨与资源，没有直接发送GET请求获取数据，
+    而是发送了一个OPTIONS请求询问是否可以访问该资源。
+    我们称之为Preflight请求，默认因为同源策略的存在，
+    该请求返回的Header中没有'Access-Control-Allow-Origin'属性，所以访问失败。
+    
+    如果要实现跨域，关键在于服务器，客户端的代码按照正常的方式编写即可。
+    对于服务器，只需要在收到OPTIONS请求的地方，返回的头信息中增加该属性即可，代码如下：
+    //允许所有域名发起的跨域请求
+    header('Access-Control-Allow-Origin: *');
+        //允许指定发起的跨域请求如：www.test.com
+        //header("Access-Control-Allow-Origin: http://www.test.com");
+    header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+    header('Access-Control-Allow-Methods: GET, POST, PUT');
+    ```
 
-
-
+* 随机码
+    ```php
+    //生成6位包含0~9、a~z、A~Z的随机码
+    substr(str_shuffle(implode(array_merge(range(0, 9), range('a', 'z'), range('A', 'Z')))), 0, 6);
+    ```
 
 
 

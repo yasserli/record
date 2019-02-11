@@ -4,7 +4,7 @@
         * $_instance必须声明为静态的私有变量
         * __construct()构造函数必须声明为私有，防止外部程序new类从而失去单例模式的意义
         * __clone()函数声明为私有，阻止用户复制对象实例
-        * getInstance()方法必须设置为公有的,必须调用此方法以返回实例的一个引用
+        * getInstance()方法必须设置为公有的，必须调用此方法以返回实例的一个引用
         * ::操作符只能访问静态变量和静态函数
         * new对象都会消耗内存
     * 场景：
@@ -54,7 +54,7 @@
     * 五、自定义错误、异常和程序完成的函数
         * 知识点：
             ```
-            1、设置错误处理：set_error_handler('_error_handler')。处理函数原型：function _error_handler($severity, $message, $filepath, $line)。
+            1、设置错误处理：set_error_handler('_error_handler')。处理函数原型：function _error_handler($severity， $message， $filepath， $line)。
             程序本身原因或手工触发trigger_error("A custom error has been triggered");
             2、设置异常处理：set_exception_handler('_exception_handler')。处理函数原型：function _exception_handler($exception)。
             当用户抛出异常时触发throw new Exception('Exception occurred');
@@ -66,21 +66,21 @@
     * 八、基准时间记录
     * 九、加载核心类并实例化：这些都是核心类core里的文件
         ```
-        钩子类 $EXT =& load_class('Hooks', 'core');
-        配置类：$CFG =& load_class('Config', 'core');  如果在index.php有手工设置的配置选项，也加载进来
-        utf8类：$UNI =& load_class('Utf8', 'core');
-        URL类：$URI =& load_class('URI', 'core');
-        路由类：$RTR =& load_class('Router', 'core', isset($routing) ? $routing : NULL);//$routing变量index.php可设置
+        钩子类 $EXT =& load_class('Hooks'， 'core');
+        配置类：$CFG =& load_class('Config'， 'core');  如果在index.php有手工设置的配置选项，也加载进来
+        utf8类：$UNI =& load_class('Utf8'， 'core');
+        URL类：$URI =& load_class('URI'， 'core');
+        路由类：$RTR =& load_class('Router'， 'core'， isset($routing) ? $routing : NULL);//$routing变量index.php可设置
                重点说明：Router在实例化时，构造函数调用$this->_set_routing()进行路由设置。实际上在这里生成$RTR时已经完成路由解析。
-        OUTPUT类：$OUT =& load_class('Output', 'core');
-        安全类：$SEC =& load_class('Security', 'core');
-        输入及过滤类：$IN    =& load_class('Input', 'core');
-        语言类：$LANG =& load_class('Lang', 'core');
+        OUTPUT类：$OUT =& load_class('Output'， 'core');
+        安全类：$SEC =& load_class('Security'， 'core');
+        输入及过滤类：$IN    =& load_class('Input'， 'core');
+        语言类：$LANG =& load_class('Lang'， 'core');
         ```
     * 十、缓存调用：
         ```
-        $EXT->call_hook('cache_override') === FALSE && $OUT->_display_cache($CFG, $URI) === TRUE
-        正常没有写cache_override这个构子方法，所以会去执行$OUT->_display_cache($CFG, $URI)。如果缓存命中则输出，并结束整个CI的单次生命周期。
+        $EXT->call_hook('cache_override') === FALSE && $OUT->_display_cache($CFG， $URI) === TRUE
+        正常没有写cache_override这个构子方法，所以会去执行$OUT->_display_cache($CFG， $URI)。如果缓存命中则输出，并结束整个CI的单次生命周期。
         如果没有命中缓存，或没有启用缓存，那么将继续向下执行。
         $OUT类是一个重要的核心类，负责了整个系统向浏览器终端呈现的内容输出，包括缓存的创建和过期删除
         ```
@@ -95,8 +95,8 @@
         CI认为下面这几种情况认为是404，如果找不到就调用show_404()函数：
         1) 请求的class不存在：! class_exists($class)
         2) 请求私有方法：!$method[0] === '_'
-        3) 请求基类方法：method_exists('CI_Controller', $method)
-        4)请求的方法不存在：! in_array(strtolower($method), array_map('strtolower', get_class_methods($class)), TRUE)
+        3) 请求基类方法：method_exists('CI_Controller'， $method)
+        4)请求的方法不存在：! in_array(strtolower($method)， array_map('strtolower'， get_class_methods($class))， TRUE)
         ```
     * 十三、404处理
     * 十四、解析请求的类，并调用请求的方法
@@ -131,6 +131,7 @@
     * 编辑器 `npp_6.9.2_Installer.exe`，特点：轻量编辑器
     * 编辑器 `PhpStorm-2018.2.5.exe`，特点：专注php开发
     * 管理器 `Git-2.19.1-64-bit.exe`，特点：git管理
+    * 隐藏程序 `RunHiddenConsole`(download)[http://redmine.lighttpd.net/attachments/660/RunHiddenConsole.zip]，特点：隐藏程序
     
 
 
@@ -288,5 +289,148 @@
         6 内容耦合: 这是最高程度的耦合，也是最差的耦合。当一个模块直接使用另一个模块的内部数据，或通过非正常入口而转入另一个模块内部。
         ``` 
 
+### 进程、线程、协程 <div id='pid'></div>
+* 概括，[资料](https://www.cnblogs.com/lxmhhy/p/6041001.html)
+    ```
+    一、概念
+    
+    1、进程
+    
+    进程是具有一定独立功能的程序关于某个数据集合上的一次运行活动，进程是系统进行资源分配和调度的一个独立单位。
+    每个进程都有自己的独立内存空间，不同进程通过进程间通信来通信。由于进程比较重量，占据独立的内存，
+    所以上下文进程间的切换开销（栈、寄存器、虚拟内存、文件句柄等）比较大，但相对比较稳定安全。
+    
+    2、线程
+    
+    线程是进程的一个实体，是CPU调度和分派的基本单位，它是比进程更小的能独立运行的基本单位。
+    线程自己基本上不拥有系统资源，只拥有一点在运行中必不可少的资源(如程序计数器，一组寄存器和栈)，
+    但是它可与同属一个进程的其他的线程共享进程所拥有的全部资源。线程间通信主要通过共享内存，上下文切换很快，
+    资源开销较少，但相比进程不够稳定容易丢失数据。
+    
+    3、协程
+    
+    协程是一种用户态的轻量级线程，协程的调度完全由用户控制。协程拥有自己的寄存器上下文和栈。
+    协程调度切换时，将寄存器上下文和栈保存到其他地方，在切回来的时候，恢复先前保存的寄存器上下文和栈，
+    直接操作栈则基本没有内核切换的开销，可以不加锁的访问全局变量，所以上下文的切换非常快。
+    
+    
+    二、区别：
+    
+    1、进程多与线程比较
+    
+        线程是指进程内的一个执行单元，也是进程内的可调度实体。
+        线程与进程的区别:
+        1) 地址空间:线程是进程内的一个执行单元，进程内至少有一个线程，它们共享进程的地址空间，而进程有自己独立的地址空间。
+        2) 资源拥有:进程是资源分配和拥有的单位，同一个进程内的线程共享进程的资源。
+        3) 线程是处理器调度的基本单位，但进程不是。
+        4) 二者均可并发执行。
+        5) 每个独立的线程有一个程序运行的入口、顺序执行序列和程序的出口，但是线程不能够独立执行，
+        必须依存在应用程序中，由应用程序提供多个线程执行控制。
+    
+    2、协程多与线程进行比较
+    
+        1) 一个线程可以多个协程，一个进程也可以单独拥有多个协程。
+        2) 线程进程都是同步机制，而协程则是异步。
+        3) 协程能保留上一次调用时的状态，每次过程重入时，就相当于进入上一次调用的状态。
+    ```
+
+* 协程，[资料](https://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/0013868328689835ecd883d910145dfa8227b539725e5ed000)
+    ```
+    协程，又称微线程，纤程。英文名Coroutine。
+    
+    协程的概念很早就提出来了，但直到最近几年才在某些语言（如Lua）中得到广泛应用。
+    
+    子程序，或者称为函数，在所有语言中都是层级调用，比如A调用B，B在执行过程中又调用了C，C执行完毕返回，B执行完毕返回，最后是A执行完毕。
+    
+    所以子程序调用是通过栈实现的，一个线程就是执行一个子程序。
+    
+    子程序调用总是一个入口，一次返回，调用顺序是明确的。而协程的调用和子程序不同。
+    
+    协程看上去也是子程序，但执行过程中，在子程序内部可中断，然后转而执行别的子程序，在适当的时候再返回来接着执行。
+    
+    注意，在一个子程序中中断，去执行其他子程序，不是函数调用，有点类似CPU的中断。
+    ```
+
+    * 优势
+        ```
+        最大的优势就是协程极高的执行效率。因为子程序切换不是线程切换，而是由程序自身控制，因此，没有线程切换的开销，
+        和多线程比，线程数量越多，协程的性能优势就越明显。
+        
+        第二大优势就是不需要多线程的锁机制，因为只有一个线程，也不存在同时写变量冲突，在协程中控制共享资源不加锁，
+        只需要判断状态就好了，所以执行效率比多线程高很多。
+        
+        因为协程是一个线程执行，那怎么利用多核CPU呢？最简单的方法是多进程+协程，既充分利用多核，又充分发挥协程的高效率，可获得极高的性能。
+        ```
+
+### 客户端、服务器 <div id='c_s'></div>
+* 创建TCP连接时，主动发起连接的叫客户端，被动响应连接的叫服务器。
+    ```
+    举个例子，当我们在浏览器中访问谷歌时，我们自己的计算机就是客户端，浏览器会主动向谷歌的服务器发起连接。
+    如果一切顺利，谷歌的服务器接受了我们的连接，一个TCP连接就建立起来的，后面的通信就是发送网页内容了。
+    ```
+    * 通常意义的`c/s`就是指 客户端/服务器
+
+### Socket <div id='socket'></div>
+* Socket是网络编程的一个抽象概念。
+* Socket是对TCP/IP协议的封装，它把复杂的TCP/IP协议族隐藏在Socket接口后面，提供一个易用的接口，所以Socket本身并不是协议，而是一个调用接口（API）。
+    ```
+    套接字之间的连接过程分为三个步骤：
+        服务器监听
+        客户端请求
+        连接确认
+    
+    Socket的基本操作：
+        3.1、socket()函数
+        3.2、bind()函数
+        3.3、listen()、connect()函数
+        3.4、accept()函数
+        3.5、read()、write()函数等
+        3.6、close()函数
+    ```
+* [资料](https://zh.wikipedia.org/wiki/%E7%B6%B2%E8%B7%AF%E6%8F%92%E5%BA%A7)
+    ```
+    在计算器科学中，网上套接字（英语：Network socket），又译网络套接字、网络接口、网上插槽，
+    是计算机网上中进程间数据流的端点。使用以网际协议（Internet Protocol）为通信基础的网上套接字，
+    称为网际套接字（Internet socket）。因为网际协议的流行，现代绝大多数的网上套接字，都是属于网际套接字。
+    
+    socket是一种操作系统提供的进程间通信机制。
+    
+    在操作系统中，通常会为应用程序提供一组应用程序接口（API），称为套接字接口（英语：socket API）。
+    应用程序可以通过套接字接口，来使用网上套接字，以进行数据交换。
+    ```
+    
+* Socket与Http，[资料](https://www.jianshu.com/p/5a1bfc528fdc)
+    ```
+    通常情况下Socket连接就是TCP连接
+    不同点：
+    1.连接长度
+        Socket：长连接,连接一旦建立，通信双方即可开始相互发送数据内容，直到双方连接断开
+        HTTP：短连接,连接使用的是“请求—响应”的方式
+    
+    2.连接响应
+        Socket：实际情况中,客户端到服务器之间的通信防火墙默认会关闭长时间处于非活跃状态的连接而导致 Socket 连接断连，
+            因此需要通过轮询告诉网络，该连接处于活跃状态
+        HTTP：在请求时需要先建立连接，而且需要客户端向服务器发出请求后，服务器端才能回复数据(被动)
+    ```
+
+### Sql <div id='sql'></div>
+* 主键、外键和索引的区别
+    ```
+    定义：    
+     主键-- 唯一标识一条记录，不能有重复的，不允许为空    
+     外键-- 表的外键是另一表的主键, 外键可以有重复的, 可以是空值    
+     索引-- 该字段没有重复值，但可以有一个空值
+    
+    作用：    
+     主键-- 用来保证数据完整性    
+     外键-- 用来和其他表建立联系用的    
+     索引-- 是提高查询排序的速度
+    
+    个数：    
+     主键-- 主键只能有一个    
+     外键-- 一个表可以有多个外键    
+     索引-- 一个表可以有多个唯一索引
+    ```
+ 
 
 

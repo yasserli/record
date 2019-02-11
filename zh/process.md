@@ -159,7 +159,114 @@
 
 
 
+### Nginx <div id='nginx'></div>
+* 描述
+    * 是异步框架的 Web服务器，也可以用作反向代理，负载平衡器 和 HTTP缓存。
+* `nginx.conf`配置
+```
+#user  nobody;
+worker_processes  1;
+
+error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;
 
 
+events {
+    worker_connections  1024;
+}
 
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+
+    #access_log  logs/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    server {
+        # 监听的端口
+        listen       80;
+
+        # 被访问域名时触发 这个 server 块配置
+        server_name  yun.service.consul;
+
+        # 设置网站根目录
+        root   D:\lys\saas;
+
+        # 设置默认读取文件
+        index  index.php index.html index.htm;
+
+        #charset koi8-r;
+
+        #access_log  logs/host.access.log  main;
+
+        location / {
+            # https://www.nginx.com/blog/installing-wordpress-with-nginx-unit/
+            # 隐藏index.php
+            try_files $uri $uri/ /index.php/$args;
+            #try_files $uri $uri/ /index.php/$uri;
+        }
+
+        # https://www.nginx.com/resources/wiki/start/topics/examples/phpfcgi/
+        # Connecting NGINX to PHP FPM
+        # Now we must tell NGINX to proxy requests to PHP FPM via the FCGI protocol:
+        location ~ [^/]\.php(/|$) {
+        #location ~ \.php$ {
+            #fastcgi_split_path_info ^(.+\.php)(/.+)$;
+
+            # https://www.nginx.com/resources/wiki/start/topics/examples/phpfastcgionwindows/
+            # 关联 php-cgi 来解析 php 文件
+            fastcgi_pass   127.0.0.1:9000;
+            fastcgi_index  index.php;
+            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+            include        fastcgi_params;
+        }
+
+        #error_page  404              /404.html;
+
+        # redirect server error pages to the static page /50x.html
+        #
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            #root   html;
+        }
+
+    }
+
+}
+```
+* 问题
+    * 解析php文件变为自动下载
+        * 解决：nginx.conf 新增 
+        ```
+        location ~ \.php$ {
+            # 网站根目录
+            root xxx;
+            # 关联 php-cgi 来解析 php 文件
+            fastcgi_pass   127.0.0.1:9000;
+            fastcgi_index  index.php;
+            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+            include        fastcgi_params;
+        }
+        ```
+    * 无法解析php文件
+        * 解决：NGINX can interface with PHP on Windows via a FastCGI daemon, which ships with PHP: php-cgi.exe. 
+        You need to run php-cgi.exe -b 127.0.0.1:<port> and use fastcgi_pass 127.0.0.1:<port>; in the NGINX configuration file. 
+        [LINK](https://www.nginx.com/resources/wiki/start/topics/examples/phpfastcgionwindows/)
+    * "No input file specified."
+        * 解决：因为 $document_root 的参数是由 root xxx 这一行定义的，所以 root xxx 设置不正确或没有设置就报错。
 

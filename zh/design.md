@@ -191,14 +191,6 @@
     ::更新ui的git
     git pull
     
-    ECHO pull template...
-    cd d:\lys\saas_frontend
-    git pull
-    
-    ECHO pull template1...
-    cd d:\lys\saas_frontend_v0.1
-    git pull
-    
     ECHO pull source...
     cd D:\lys\product
     git pull

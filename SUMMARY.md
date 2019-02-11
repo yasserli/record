@@ -27,6 +27,10 @@
     * [Codeigniter](zh/design.md#codeigniter)
     * [Work](zh/design.md#work_design)
     * [高内聚、低耦合](zh/design.md#module_design)
+    * [进程、线程、协程](zh/design.md#pid)
+    * [客户端、服务器](zh/design.md#c_s)
+    * [Socket](zh/design.md#socket)
+    * [Sql](zh/design.md#sql)
 * [网络](zh/network.md)
     * [vpn](zh/network.md#vpn)
     * [支付——paypal](zh/network.md#paypal)
@@ -37,6 +41,7 @@
 * [process](zh/process.md)
     * [kafka](zh/process.md#kafka)
     * [git](zh/git.md#git)
+    * [git](zh/process.md#nginx)
 * [language](zh/language.md)
     * [程序语言](zh/language.md#programme_language)
     

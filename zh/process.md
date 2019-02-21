@@ -414,7 +414,17 @@ http {
     * 方案二：
         * 本人使用[nvm管理](https://segmentfault.com/a/1190000007612011)下载，其他步骤结合方案一
 
-
+* 本人的Gitbook配置
+    * `book.json`，版本为`3.0.0`（为了左侧菜单跳转），插件是`splitter`（为了左侧菜单宽度拉伸）
+    * `book.json`的插件使用 `gitbook install`命令安装
+    ```
+    {
+      "gitbook": "3.0.0",
+      "plugins": [
+        "splitter"
+      ]
+    }
+    ```
 
 ### 管理程序 <div id='manager_software'></div>
 * 如今每个语言体系中都有一个包管理工具，

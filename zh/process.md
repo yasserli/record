@@ -344,14 +344,14 @@ http {
 
 
 
-### gitbook <div id='gitbook'></div>
+### Gitbook <div id='gitbook'></div>
 
-* gitbook
+* Gitbook
     * [nvm](https://github.com/coreybutler/nvm-windows/releases)
     * [nodejs](https://nodejs.org/en/download/)
         * [n](https://github.com/tj/n)
         
-* gitbook使用
+* Gitbook使用
     * ``book.json`` gitbook配置文件
         ```
         title - 标题
@@ -377,7 +377,7 @@ http {
             * [第2节](c2s2.md)
           ```
 
-* gitbook命令
+* Gitbook命令
     * ``gitbook --version`` 查看版本
     * ``gitbook --help`` 查看帮助
     * ``gitbook init`` 初始化当前目录为gitbook图书目录
@@ -401,7 +401,7 @@ http {
     * ``gitbook uninstall 2.0.1`` 卸载对应的gitbook版本
     * ``gitbook fetch 2.1.0`` 安装对应的gitbook版本，可以使用标签(例：beta)或者版本号(例：2.1.0)安装
 
-* gitbook安装
+* Gitbook安装
     * 方案一：
         * 下载nodejs
         * 进入命令行：

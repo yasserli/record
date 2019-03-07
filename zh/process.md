@@ -165,7 +165,25 @@
     * [详细教程](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
     * 是一个分布式版本控制软件，最初由林纳斯·托瓦兹创作，于2005年以GPL发布。最初目的是为更好地管理Linux内核开发而设计。
 
+* 注意：git的仓库可以理解为项目
+
+* 使用
+```
+取消本地git项目，则移除隐藏目录.git
+屏蔽某些目录、文件不推送到远程仓库，则创建、配置文件.gitignore
+```
+
+* 把本地git仓库更新到远程仓库的基础操作
+```
+git pull
+git add .
+git commit . -m '注释、备注'
+git push
+```
+
 * 常用命令
+    * git init
+        //初始化本地目录为git项目
     * git clone
         //克隆远程分支到本地仓库 
     * git add
@@ -173,9 +191,9 @@
     * git commit 
         //缓冲区提交到本地仓库
     * git push 
-        //推送到远程分支
+        //推送到远程分支项目
     * git pull 
-        //拉取最新分支
+        //拉取最新分支项目
     * git status
         //查看状态 
     * git diff 
@@ -186,6 +204,16 @@
         //撤回到某个记录 
     * git checkout 
         //检出分支，对分支的操作等
+    * git remote add origin git@github.com:yasserli/xxx.git
+        //本地仓库关联远程仓库
+    * git remote -v
+        //查看关联的远程仓库
+    * git branch -a
+        //查看本地分支、关联的远程分支
+    * git pull origin master 
+        //从远程分支`origin`拉取项目到本地分支`master`，`git pull <remote> <branch>`
+    * git push --set-upstream origin master
+        //本地分支`master`设置关联远程分支`origin`，并推送
 
 * 解决冲突
     * 所谓冲突

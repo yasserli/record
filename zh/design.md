@@ -139,7 +139,7 @@
     * 编辑器 `npp_6.9.2_Installer.exe`，特点：轻量编辑器
     * 编辑器 `PhpStorm-2018.2.5.exe`，特点：专注php开发
     * 管理器 `Git-2.19.1-64-bit.exe`，特点：git管理
-    * 隐藏程序 `RunHiddenConsole`(download)[http://redmine.lighttpd.net/attachments/660/RunHiddenConsole.zip]，特点：隐藏程序
+    * 隐藏程序 `RunHiddenConsole`[download](http://redmine.lighttpd.net/attachments/660/RunHiddenConsole.zip)，特点：隐藏程序
     
 
 

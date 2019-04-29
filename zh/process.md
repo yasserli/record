@@ -215,6 +215,30 @@ git push
     * git push --set-upstream origin master
         //本地分支`master`设置关联远程分支`origin`，并推送
 
+* 合并分支
+```
+一、fatal: refusing to merge unrelated histories
+在使用Git创建项目的时候，在两个分支合并的时候，出现了下面的这个错误。
+$ git merge origin/druid
+fatal: refusing to merge unrelated histories
+这里的问题的关键在于：fatal: refusing to merge unrelated histories 
+你可能会在git pull或者git push等中都有可能会遇到，这是因为两个分支没有取得关系。那么怎么解决呢？
+
+二、解决方案
+在你操作命令后面加--allow-unrelated-histories 
+例如： 
+$ git merge master --allow-unrelated-histories
+
+$ git merge master --allow-unrelated-histories
+Auto-merging .gitignore
+CONFLICT (add/add): Merge conflict in .gitignore
+Automatic merge failed; fix conflicts and then commit the result.
+
+如果你是git pull或者git push报fatal: refusing to merge unrelated histories 
+同理： 
+$ git pull origin master --allow-unrelated-histories
+```
+
 * 解决冲突
     * 所谓冲突
         * 2018-08-08 07:00:00发生事件：假设 远程仓库 debug.txt 只有唯一的一行代码 `hello,world`(此时远程仓库 debug.txt 的状态记录为 A1)，参与开发者有 研发员X 和 研发员Y 都克隆 A1 到本地仓库；

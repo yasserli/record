@@ -41,7 +41,46 @@
 
 
 ### Ubuntu <div id='ubuntu'></div>
+* sudo apt-get install xxx //`安装程序`
+* sudo apt-get update xxx //`更新程序`
 
+* 安装nginx
+```
+使用 which 查看命令对应的执行文件的全路径是一种常用的方法
+which nginx：
+主程序文件在/usr/sbin/nginx
+
+sudo apt-get install nginx
+Ubuntu安装之后的文件结构大致为：    
+    所有的配置文件都在/etc/nginx下，并且每个虚拟主机已经安排在了/etc/nginx/sites-available下
+        程序文件在/usr/sbin/nginx
+        日志放在了/var/log/nginx中
+        并已经在/etc/init.d/下创建了启动脚本nginx
+    默认的虚拟主机的目录设置在了/var/www/nginx-default (有的版本 默认的虚拟主机的目录设置在了/var/www, 
+        请参考/etc/nginx/sites-available里的配置)
+    
+    启动nginx
+        sudo /etc/init.d/nginx start
+        或者
+        sudo service nginx start
+    查看运行状态
+        sudo service nginx status
+    停止
+        sudo service nginx stop
+    重启
+        sudo service nginx restart
+```
+
+* [安装mysql：](https://support.rackspace.com/how-to/installing-mysql-server-on-ubuntu/)
+```
+sudo apt-get install mysql-server
+
+```
+
+* [安装php：](https://thishosting.rocks/install-php-on-ubuntu/)
+```
+
+```
 
 
 ### Linux <div id='linux'></div>

@@ -68,7 +68,7 @@ Ubuntu安装之后的文件结构大致为：
     停止
         sudo service nginx stop
     重启
-        sudo service nginx restart
+        sudo service nginx restart          
 ```
 
 * [安装mysql：](https://support.rackspace.com/how-to/installing-mysql-server-on-ubuntu/)
@@ -82,6 +82,19 @@ sudo apt-get install mysql-server
 
 ```
 
+* 查看端口
+```
+查看已经连接的服务端口（ESTABLISHED）
+netstat -a
+
+
+查看所有的服务端口（LISTEN，ESTABLISHED）
+netstat -ap
+
+
+查看指定端口，可以结合grep命令：
+netstat -ap | grep 8080
+```
 
 ### Linux <div id='linux'></div>
 * 网络
